@@ -1,3 +1,6 @@
+#ifndef EPOLLER_H
+#define EPOLLER_H
+
 #include <fcntl.h>
 #include <sys/epoll.h>
 #include <unistd.h>
@@ -26,5 +29,6 @@ class Epoller {
  private:
   int epoll_fd_;
 
-  std::vector<struct epoll_event> events_;
+  std::vector<struct epoll_event> events_;  // 就绪队列
 };
+#endif  // EPOLLER_H

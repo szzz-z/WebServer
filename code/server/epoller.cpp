@@ -55,6 +55,13 @@ auto Epoller::DelFd(int fd) -> bool {
 auto Epoller::Wait(int timeoutMs) -> int {
   return epoll_wait(epoll_fd_, events_.data(), static_cast<int>(events_.size()), timeoutMs);
 }
+// 在调用epoll_wait函数时，events参数指向的数组才会被填充与发生改变。epoll_wait函数的作用是等待epoll实例监控的文件描述符上的事件发生，
+// 直到有事件发生或者达到指定的超时时间为止。在事件发生（例如某个文件描述符变得可读或可写）之前，epoll_wait会保持阻塞状态。
+// 一旦有事件发生，或者是超时时间到达，epoll_wait函数就会返回。
+// 它会将所有就绪的事件，也就是那些发生了的、你之前用epoll_ctl注册过感兴趣的事件，填充到你传入的events数组中。
+// 每个就绪的事件都会被填充为events数组的一个元素，epoll_wait同时返回就绪事件的总数。
+
+
 
 // 这两个函数用于访问Wait方法返回后，在events_向量中存储的事件。
 // GetEventFd返回第i个事件的文件描述符。

@@ -1,3 +1,6 @@
+#ifndef BUFFER_H
+#define BUFFER_H
+
 #include <sys/uio.h>
 #include <unistd.h>
 #include <atomic>
@@ -7,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 class Buffer {
  public:
   explicit Buffer(int initBuffSize = 1024);
@@ -51,3 +55,4 @@ class Buffer {
   std::atomic<std::size_t> read_pos_;   // 用于指示读指针
   std::atomic<std::size_t> write_pos_;  // 用于指示写指针
 };
+#endif  // EPOLLER_H
