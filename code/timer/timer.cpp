@@ -24,7 +24,7 @@ void HeapTimer::SwapNode(size_t i, size_t j) {
 
 auto HeapTimer::HeapifyDown(size_t idx, size_t n) -> bool {
   assert(idx >= 0 && idx < heap_.size());
-  assert(n >= 0 && n <= heap_.size());
+  assert(n >= 0 && n <= heap_.size());  // 边界[a,b)
   size_t i = idx;
   size_t j = i * 2 + 1;
   while (j < n) {
@@ -94,8 +94,9 @@ void HeapTimer::Adjust(int id, int newExpires) {
   /* 调整指定id的结点 */
   assert(!heap_.empty() && ref_.count(id) > 0);
   heap_[ref_[id]].expires_ = Clock::now() + MS(newExpires);
-  ;
-  HeapifyDown(ref_[id], heap_.size());
+  if (!HeapifyDown(ref_[id], heap_.size())) {
+    HeapifyUp(ref_[id]);
+  }
 }
 
 void HeapTimer::Tick() {
