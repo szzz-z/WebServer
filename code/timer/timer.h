@@ -10,6 +10,7 @@
 #include <functional>
 #include <queue>
 #include <unordered_map>
+#include <utility>
 
 using TimeoutCallBack = std::function<void()>;
 using Clock = std::chrono::high_resolution_clock;
@@ -18,6 +19,8 @@ using TimeStamp = Clock::time_point;
 
 class TimerNode {
  public:
+  TimerNode(int id, std::chrono::time_point<std::chrono::system_clock> expires, TimeoutCallBack cb)
+      : id_(id), expires_(expires), cb_(std::move(cb)) {}
   int id_;              // 用来标记定时器
   TimeStamp expires_;   // 设置过期时间
   TimeoutCallBack cb_;  // 设置一个回调函数用来方便删除定时器时将对应的HTTP连接关闭
