@@ -24,7 +24,6 @@ void Buffer::RetrieveUntil(const char *end) {
 }
 
 void Buffer::RetrieveAll() {
-  // bzero(&buffer_[0], buffer_.size());
   buffer_.assign(buffer_.size(), 0);
   read_pos_ = 0;
   write_pos_ = 0;

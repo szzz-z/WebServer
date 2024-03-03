@@ -3,7 +3,7 @@
 
 ## 环境
 * Linux ubuntu22.04
-* clang version 18.0.0
+* clang version 19.0.0
 * C++17
 * MySql 8.0.32
 
